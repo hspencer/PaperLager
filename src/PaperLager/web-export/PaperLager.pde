@@ -3,35 +3,41 @@
  * Herbert Spencer 2013
  */
 
+interface JavaScript {
+  void showXYCoordinates(int x, int y);
+}
+
+void bindJavascript(JavaScript js) {
+  javascript = js;
+}
+
+JavaScript javascript;
+
 Punto[] puntos;                   // los puntos
 ArrayList achurados;              // los achurados, compuestos cada uno por 4 puntos
-int numX, numY, numPuntos;        // número de puntos
-float m = 150;                    // margen
-PFont f;
-boolean muestraPuntos;
+
+// número de puntos
+int numX = 15;
+int numY = 10;
+
+int numPuntos;
+float m = 100;                    // margen
+
 
 color fondo, lineas;
 float anchoTrama, anchoTrazo;
-int ancho, alto;
 
 void setup() {
-  ancho = 960;
-  alto = 600;
-  size(ancho, alto);
-  numX = 10;
-  numY = 5;
+  size(960, 600);
   numPuntos = numX * numY;
   puntos = new Punto[numPuntos];
   achurados = new ArrayList();
-  f = createFont("Monaco", 10);
-  textFont(f, 10);
-  textAlign(CENTER);
-  muestraPuntos = false;
+
   creaPuntos();
   creaAchurados();
   fondo = color(#8B3F0D);
   lineas = color(#B2581D);
-  anchoTrama = 15;
+  anchoTrama = 5;
   anchoTrazo = 1;
   strokeCap(SQUARE);
   strokeJoin(BEVEL);
@@ -54,10 +60,8 @@ void creaPuntos() {
 
       puntos[i] = new Punto(px, py, i);
       i++;
-      // println("Punto creado en "+px+", "+py);
     }
   }
-  //imprimePuntos();
 }
 
 
@@ -74,9 +78,7 @@ void creaAchurados() {
 void draw() {
   background(fondo);
   dibujaAchurados();
-  if (muestraPuntos) { 
-    dibujaPuntos();
-  }
+
   if (keyPressed && key =='n') {
     for (int i = 0; i < puntos.length; i++) {
       //float x = puntos[i].x;
@@ -95,28 +97,17 @@ void dibujaAchurados() {
   }
 }
 
-void dibujaPuntos() {
-  for (int i = 0; i < numPuntos; i++) {
-    fill(0);
-    noStroke();
-    ellipse(puntos[i].x, puntos[i].y, 5, 5);
-    text(puntos[i].num, puntos[i].x, puntos[i].y+12);
-  }
-}
-
 void keyPressed() {
   if (key == 'r') {
     achurados.clear();
     creaPuntos();
     creaAchurados();
   }
-  if (key == ' ') {
-    muestraPuntos = !muestraPuntos;
-  }
+
   if (key == 's' || key == 'S') {
     String filename = "img/hatch-"+year()+"_"+month()+"_"+day()+"___"+hour()+"-"+minute()+"-"+second()+".png";
     saveFrame(filename);
-    println("se ha grabado exitosamente el archivo "+filename);
+    // println("se ha grabado exitosamente el archivo "+filename);
   }
   if (key == 'a' || key == 'A') {
     anchoTrazo += .5;
@@ -129,13 +120,6 @@ void keyPressed() {
   }
   if (key == 'c' || key == 'C') {
     if (anchoTrama >= 1)anchoTrama -= .5;
-  }
-}
-
-void imprimePuntos() {
-  println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-  for (int i = 0; i < puntos.length; i++) {
-    println(i+"\t\t"+puntos[i].x+"\t\t"+puntos[i].y);
   }
 }
 
@@ -169,7 +153,7 @@ class Achurado {
     float x = (a.x + b.x + c.x + d.x)/4;
     float y = (a.y + b.y + c.y + d.y)/4;
     centro = new Punto(x, y);
-    println(centro.x);
+    // println(centro.x);
   }
 
   void draw() {
