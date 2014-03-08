@@ -6,3 +6,13 @@ void mouseReleased() {
     }
   }
 }
+
+void mouseDragged() {
+  for (int i = 0; i < puntos.length; i++) {
+    if (puntos[i].over()) {
+      puntos[i].x = mouseX;
+      puntos[i].y = mouseY;
+    }
+  }
+}
+

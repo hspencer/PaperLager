@@ -15,12 +15,44 @@
           border-radius: @radius;
 }
 
+
+// import colorpicker
+@import "../bower_components/jquery-minicolors/jquery.minicolors.css";
+
+h1{
+	font-size: 40px;
+	line-height: 45px;
+	font-weight: lighter;
+	margin: 0;
+}
+
+a{
+	color: fade(@white, 50);
+	&:hover{color: @white}
+	text-decoration: none;
+	&.github-btn{
+		background-color: fade(@black, 50);
+		padding: 1px 4px;
+		.border-radius(4px);
+	}
+}
+
+hr{
+	height: 2px;
+	border-top: 1px solid fade(@white, 15);
+	border-bottom: 1px solid fade(@black, 10);
+	border-left: none;
+	border-right: none;
+	margin: 4px 0;
+
+}
+
 body {
 	margin: 0;
 	background-color: @brown; 
 	color: @gray-light; 
 	line-height: normal;
-	font-family: Lucida Grande, Lucida Sans, Arial, Helvetica Neue, Verdana, Geneva, sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 11px; 
 	font-weight: normal; 
 	text-decoration: none;
@@ -36,7 +68,9 @@ canvas {
 
 button,
 input[type='button']{
+	font-family: 'Helvetica Neue', Helvetica;
 	border: 0;
+	font-size: 14px;
 	background-color: fade(@black, 20);
 	.border-radius(3px);
 	color: @white;
@@ -44,10 +78,14 @@ input[type='button']{
 	&:hover{background-color: fade(@black, 65);}
 
 	&.important{
-		margin: 20px 0 0 0;
-		font-size: 14px;
-		font-weight: bolder;
+		width: 100%;
+		padding: 12px;
+		text-transform: lowercase;
+		margin: 13px 0 0 0;
+		font-size: 22px;
+		font-weight: lighter;
 		background-color: fade(@black, 50);
+		&:hover{background-color: @black}
 	}
 }
 
@@ -89,6 +127,24 @@ input[type='button']{
 			font-size: 14px;
 			font-weight: lighter;
 			color: fade(@white, 60);
+		}
+	}
+
+	#colores-control{
+		margin-bottom: 12px;
+		label{
+			text-transform: lowercase;
+			display: inline-block;
+			width: 60px;
+			text-align: right;
+			margin-right: 5px;
+			width: 40px;
+			font-size: 12px;
+			font-weight: 400;
+			color: fade(@white, 50);
+		}
+		intput[type='minicolors-input']{
+			.border-radius(3px);
 		}
 	}
 }

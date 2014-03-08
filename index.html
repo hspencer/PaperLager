@@ -8,6 +8,8 @@
 	<!--[if lt IE 9]>
 		<script type='text/javascript'>alert('Your browser does not support the canvas tag.');</script>
 	<![endif]-->
+	<script src='js/jquery.min.js' type="text/javascript"></script>
+	<script src='js/jquery.minicolors.min.js' type="text/javascript"></script>
 	<script src='js/processing.js' type='text/javascript'></script>
 	<script src='js/html5slider.js' type='text/javascript'></script>
 	<script src='js/interactions.js' type='text/javascript'></script>
@@ -28,21 +30,35 @@
 
 	<div id='controls'>
 
-		<label>Zoom</label>
-		<div class='button-group'>
+		<h1>PaperLager</h1>
+		<a href='http://www.github.com/hspencer/PaperLager' class='github-btn'>ver en Github</a>
+		
+		<hr>
+
+		<label for='zoom-control'>Zoom</label>
+		<div id='zoom-control' class='button-group'>
 			<input id='zoom-out' type='button' value='–' onClick='zoomOut();'>
 			<input id='zoom-in' type='button' value='+' onClick='zoomIn();'>
 		</div>
 		
-		<label>Grosor del Trazo<br>
+		<label for='anchoTrazo'>Grosor del Trazo<br>
 			<input id='anchoTrazo' type='range' min='.25' max='10' value='1' step='.25'>
 			<div id='anchoTrazo-out' class='output'>1</div>
 		</label>
 
-		<label>Ancho de la Trama<br>
+		<label for='anchoTrama'>Ancho de la Trama<br>
 			<input id='anchoTrama' type='range' min='1' max='20' value='5' step='.5'>
 			<div id='anchoTrama-out' class='output'>5</div>
 		</label>
+
+		<label>Colores</label>
+		<div id='colores-control'>
+			<label for='lineas'>líneas</label>
+			<input id='lineas' type='minicolors-input' class='minicolors' value='#B2581D'>
+			<label for='fondo'>fondo</label>
+			<input id='fondo' type='minicolors-input' class='minicolors' value='#8B3F0D'>
+		</div>
+		
 
 		<input type='button' id='noise' value='distorsiona' onClick='addNoise();' onMousedown='addNoise();'>
 		<input type='button' id='reset' value='reset' onClick='reset();'>
