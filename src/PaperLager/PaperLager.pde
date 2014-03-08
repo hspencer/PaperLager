@@ -3,44 +3,14 @@
  * Herbert Spencer 2013
  */
 
-interface JavaScript {
-  void showXYCoordinates(int x, int y);
-}
-
-void bindJavascript(JavaScript js) {
-  javascript = js;
-}
-
-JavaScript javascript;
-
-Punto[] puntos;                   // los puntos
-ArrayList achurados;              // los achurados, compuestos cada uno por 4 puntos
-
-// número de puntos
-int numX = 15;
-int numY = 10;
-
-int numPuntos;
-float m = 100;                    // margen
-
-
-color fondo, lineas;
-float anchoTrama, anchoTrazo;
 
 void setup() {
   size(960, 600);
   numPuntos = numX * numY;
   puntos = new Punto[numPuntos];
   achurados = new ArrayList();
-
   creaPuntos();
   creaAchurados();
-  fondo = color(#8B3F0D);
-  lineas = color(#B2581D);
-  anchoTrama = 5;
-  anchoTrazo = 1;
-  strokeCap(SQUARE);
-  strokeJoin(BEVEL);
 }
 
 void creaPuntos() {
@@ -78,15 +48,6 @@ void creaAchurados() {
 void draw() {
   background(fondo);
   dibujaAchurados();
-
-  if (keyPressed && key =='n') {
-    for (int i = 0; i < puntos.length; i++) {
-      //float x = puntos[i].x;
-      //float y = puntos[i].y;
-      puntos[i].x += noise((millis()/2000 + puntos[i].x)/100, (millis()/2000 + puntos[i].y)/100, 0) - 0.5;
-      puntos[i].y += noise((millis()/2000 + puntos[i].x)/100, (millis()/2000 + puntos[i].y)/100, 100) - 0.5;
-    }
-  }
 }
 
 void dibujaAchurados() {
@@ -97,38 +58,12 @@ void dibujaAchurados() {
   }
 }
 
-void keyPressed() {
-  if (key == 'r') {
-    achurados.clear();
-    creaPuntos();
-    creaAchurados();
-  }
 
-  if (key == 's' || key == 'S') {
-    String filename = "img/hatch-"+year()+"_"+month()+"_"+day()+"___"+hour()+"-"+minute()+"-"+second()+".png";
-    saveFrame(filename);
-    // println("se ha grabado exitosamente el archivo "+filename);
-  }
-  if (key == 'a' || key == 'A') {
-    anchoTrazo += .5;
-  }
-  if (key == 'z' || key == 'Z') {
-    if (anchoTrazo >= 1) anchoTrazo -= .5;
-  }
-  if (key == 'd' || key == 'D') {
-    anchoTrama += .5;
-  }
-  if (key == 'c' || key == 'C') {
-    if (anchoTrama >= 1)anchoTrama -= .5;
-  }
-}
 
-void mouseReleased() {
-  for (int i = 0; i < achurados.size(); i++) {
-    Achurado a = (Achurado)achurados.get(i);
-    if (a.over) {
-      a.horizontal = !a.horizontal;
-    }
-  }
-}
+
+
+
+
+
+
 

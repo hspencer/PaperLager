@@ -13,20 +13,26 @@
 	<script src='js/interactions.js' type='text/javascript'></script>
 </head>
 <body>
-	<div id='content'>
-		<div>
-			<canvas id='PaperLager' data-processing-sources='PaperLager.pde' 
-			width='960' height='600'>
-			<p>Your browser does not support the canvas tag.</p>
-			<!-- Note: you can put any alternative content here. -->
-			</canvas>
-			<noscript>
-				<p>JavaScript is required to view the contents of this page.</p>
-			</noscript>
-		</div>
-	</div>
+
+	
+	<canvas id='PaperLager' data-processing-sources='PaperLager.pde' 
+	width='960' height='600'>
+	<p>Your browser does not support the canvas tag.</p>
+	<!-- Note: you can put any alternative content here. -->
+	</canvas>
+	<noscript>
+		<p>JavaScript is required to view the contents of this page.</p>
+	</noscript>
+		
+
 
 	<div id='controls'>
+
+		<label>Zoom</label>
+		<div class='button-group'>
+			<input id='zoom-out' type='button' value='–' onClick='zoomOut();'>
+			<input id='zoom-in' type='button' value='+' onClick='zoomIn();'>
+		</div>
 		
 		<label>Grosor del Trazo<br>
 			<input id='anchoTrazo' type='range' min='.25' max='10' value='1' step='.25'>

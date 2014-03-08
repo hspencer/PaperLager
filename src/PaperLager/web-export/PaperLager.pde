@@ -3,44 +3,14 @@
  * Herbert Spencer 2013
  */
 
-interface JavaScript {
-  void showXYCoordinates(int x, int y);
-}
-
-void bindJavascript(JavaScript js) {
-  javascript = js;
-}
-
-JavaScript javascript;
-
-Punto[] puntos;                   // los puntos
-ArrayList achurados;              // los achurados, compuestos cada uno por 4 puntos
-
-// número de puntos
-int numX = 15;
-int numY = 10;
-
-int numPuntos;
-float m = 100;                    // margen
-
-
-color fondo, lineas;
-float anchoTrama, anchoTrazo;
 
 void setup() {
   size(960, 600);
   numPuntos = numX * numY;
   puntos = new Punto[numPuntos];
   achurados = new ArrayList();
-
   creaPuntos();
   creaAchurados();
-  fondo = color(#8B3F0D);
-  lineas = color(#B2581D);
-  anchoTrama = 5;
-  anchoTrazo = 1;
-  strokeCap(SQUARE);
-  strokeJoin(BEVEL);
 }
 
 void creaPuntos() {
@@ -78,15 +48,6 @@ void creaAchurados() {
 void draw() {
   background(fondo);
   dibujaAchurados();
-
-  if (keyPressed && key =='n') {
-    for (int i = 0; i < puntos.length; i++) {
-      //float x = puntos[i].x;
-      //float y = puntos[i].y;
-      puntos[i].x += noise((millis()/2000 + puntos[i].x)/100, (millis()/2000 + puntos[i].y)/100, 0) - 0.5;
-      puntos[i].y += noise((millis()/2000 + puntos[i].x)/100, (millis()/2000 + puntos[i].y)/100, 100) - 0.5;
-    }
-  }
 }
 
 void dibujaAchurados() {
@@ -97,40 +58,14 @@ void dibujaAchurados() {
   }
 }
 
-void keyPressed() {
-  if (key == 'r') {
-    achurados.clear();
-    creaPuntos();
-    creaAchurados();
-  }
 
-  if (key == 's' || key == 'S') {
-    String filename = "img/hatch-"+year()+"_"+month()+"_"+day()+"___"+hour()+"-"+minute()+"-"+second()+".png";
-    saveFrame(filename);
-    // println("se ha grabado exitosamente el archivo "+filename);
-  }
-  if (key == 'a' || key == 'A') {
-    anchoTrazo += .5;
-  }
-  if (key == 'z' || key == 'Z') {
-    if (anchoTrazo >= 1) anchoTrazo -= .5;
-  }
-  if (key == 'd' || key == 'D') {
-    anchoTrama += .5;
-  }
-  if (key == 'c' || key == 'C') {
-    if (anchoTrama >= 1)anchoTrama -= .5;
-  }
-}
 
-void mouseReleased() {
-  for (int i = 0; i < achurados.size(); i++) {
-    Achurado a = (Achurado)achurados.get(i);
-    if (a.over) {
-      a.horizontal = !a.horizontal;
-    }
-  }
-}
+
+
+
+
+
+
 
 class Achurado {
   Punto a, b, c, d, centro;
@@ -200,7 +135,6 @@ class Achurado {
     }
   }
 }
-
 class Punto {
   float x, y;
   int num;
@@ -239,7 +173,6 @@ float x4, float y4
     x3 + incx2 * i, y3 + incy2 * i);
   }
 }
-
 void hatch(
 float x1, float y1, 
 float x2, float y2, 
@@ -279,5 +212,102 @@ void hatch(Punto a, Punto b, Punto c, Punto d) {
     c.x + incx2 * i, c.y + incy2 * i);
   }
 }
+
+void zoomIn() {
+  float inc = 10;
+  for (int i = 0; i < puntos.length; i++) {
+    puntos[i].x = map(puntos[i].x, 0, width, -inc, width + inc);
+    puntos[i].y = map(puntos[i].y, 0, height, -inc, height + inc);
+  }
+}
+
+void zoomOut() {
+  float inc = -10;
+  for (int i = 0; i < puntos.length; i++) {
+    puntos[i].x = map(puntos[i].x, 0, width, -inc, width + inc);
+    puntos[i].y = map(puntos[i].y, 0, height, -inc, height + inc);
+  }
+}
+
+void updateAnchoTrazo(float at) {
+  anchoTrazo = at;
+}
+
+void updateAnchoTrama(float at) {
+  anchoTrama = at;
+}
+
+void addNoise() {
+  for (int i = 0; i < puntos.length; i++) {
+    puntos[i].x += (noise((millis()/2000 + puntos[i].x)/100, (millis()/2000 + puntos[i].y)/100, 0) - 0.5) * 10;
+    puntos[i].y += (noise((millis()/2000 + puntos[i].x)/100, (millis()/2000 + puntos[i].y)/100, 100) - 0.5) * 10;
+  }
+}
+
+void keyPressed() {
+  if (key == 'r') {
+    achurados.clear();
+    creaPuntos();
+    creaAchurados();
+  }
+
+  if (key == 's' || key == 'S') {
+    String filename = "img/hatch-"+year()+"_"+month()+"_"+day()+"___"+hour()+"-"+minute()+"-"+second()+".png";
+    saveFrame(filename);
+    // println("se ha grabado exitosamente el archivo "+filename);
+  }
+  if (key == 'a' || key == 'A') {
+    anchoTrazo += .5;
+  }
+  if (key == 'z' || key == 'Z') {
+    if (anchoTrazo >= 1) anchoTrazo -= .5;
+  }
+  if (key == 'd' || key == 'D') {
+    anchoTrama += .5;
+  }
+  if (key == 'c' || key == 'C') {
+    if (anchoTrama >= 1)anchoTrama -= .5;
+  }
+  if (key == 'n' || key == 'N') {
+    addNoise();
+  }
+  if (key == 'f' || key == 'F') {
+    zoomOut();
+  }
+  if (key == 'v' || key == 'V') {
+    zoomIn();
+  }
+}
+
+void mouseReleased() {
+  for (int i = 0; i < achurados.size(); i++) {
+    Achurado a = (Achurado)achurados.get(i);
+    if (a.over) {
+      a.horizontal = !a.horizontal;
+    }
+  }
+}
+Punto[] puntos;                   // los puntos
+ArrayList achurados;              // los achurados, compuestos cada uno por 4 puntos
+
+// tamaño del dibujo
+int ancho = 960;
+int alto = 600;
+
+// número de puntos
+int numX = 15;
+int numY = 10;
+
+int numPuntos;  // numX * numY
+float m = 100;  // margen
+
+// colores
+color fondo  = color(#8B3F0D);
+color lineas = color(#B2581D);
+
+// trama
+float anchoTrama = 5;
+float anchoTrazo = 1;
+
 
 
