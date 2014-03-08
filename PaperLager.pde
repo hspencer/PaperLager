@@ -5,7 +5,7 @@
 
 
 void setup() {
-  size(960, 600);
+  size(ancho, alto);
   numPuntos = numX * numY;
   puntos = new Punto[numPuntos];
   achurados = new ArrayList();
@@ -13,6 +13,13 @@ void setup() {
   creaAchurados();
   strokeCap(SQUARE);
   strokeJoin(BEVEL);
+}
+
+void regen(){
+  puntos = new Punto[numPuntos];
+  achurados = new ArrayList();
+  creaPuntos();
+  creaAchurados();
 }
 
 void creaPuntos() {
@@ -205,16 +212,16 @@ void hatch(Punto a, Punto b, Punto c, Punto d) {
 void zoomIn() {
   float inc = 10;
   for (int i = 0; i < puntos.length; i++) {
-    puntos[i].x = map(puntos[i].x, 0, width, -inc, width + inc);
-    puntos[i].y = map(puntos[i].y, 0, height, -inc, height + inc);
+    puntos[i].x = map(puntos[i].x, 0, ancho, -inc, ancho + inc);
+    puntos[i].y = map(puntos[i].y, 0, alto, -inc, alto + inc);
   }
 }
 
 void zoomOut() {
   float inc = -10;
   for (int i = 0; i < puntos.length; i++) {
-    puntos[i].x = map(puntos[i].x, 0, width, -inc, width + inc);
-    puntos[i].y = map(puntos[i].y, 0, height, -inc, height + inc);
+    puntos[i].x = map(puntos[i].x, 0, ancho, -inc, ancho + inc);
+    puntos[i].y = map(puntos[i].y, 0, alto, -inc, alto + inc);
   }
 }
 
@@ -245,6 +252,17 @@ color toColor(String s){
   s = "FF" + s.substring(1);
   return color(unhex(s));
 }
+
+void updateSize(int ancho, int alto){
+    for (int i = 0; i < puntos.length; i++) {
+      puntos[i].x = map(puntos[i].x, 0, width, 0, ancho);
+      puntos[i].y = map(puntos[i].y, 0, height, 0, alto);
+    }
+    size(ancho, alto);
+    width = ancho;
+    height = alto;
+}
+
 void keyPressed() {
   if (key == 'r') {
     achurados.clear();
@@ -298,12 +316,11 @@ void mouseDragged() {
   }
 }
 
+var ancho = 960;
+var alto = 600;
+
 Punto[] puntos;                   // los puntos
 ArrayList achurados;              // los achurados, compuestos cada uno por 4 puntos
-
-// tamaño del dibujo
-int ancho = 960;
-int alto = 600;
 
 // número de puntos
 int numX = 15;
