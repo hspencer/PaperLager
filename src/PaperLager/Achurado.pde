@@ -19,7 +19,7 @@ class Achurado {
     float x = (a.x + b.x + c.x + d.x)/4;
     float y = (a.y + b.y + c.y + d.y)/4;
     centro = new Punto(x, y);
-    println(centro.x);
+    // println(centro.x);
   }
 
   void draw() {

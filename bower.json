@@ -1,0 +1,7 @@
+{
+  "name": "PaperLager",
+  "version": "1.0.0",
+  "dependencies": {
+    "processingjs": "~1.4.0"
+  }
+}
