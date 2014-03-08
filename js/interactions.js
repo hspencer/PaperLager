@@ -26,10 +26,21 @@ function addNoise(){
 	pjs.addNoise();
 }
 
+function zoomIn(){
+	var pjs = Processing.getInstanceById('PaperLager');
+	pjs.zoomIn();
+}
+
+function zoomOut(){
+	var pjs = Processing.getInstanceById('PaperLager');
+	pjs.zoomOut();
+}
+
 function reset(){
 	var pjs = Processing.getInstanceById('PaperLager');
 	pjs.setup();
 }
 
+$('zoom').oninput();
 $('anchoTrama').oninput();
 $('anchoTrazo').oninput();
