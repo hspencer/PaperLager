@@ -11,6 +11,8 @@ void setup() {
   achurados = new ArrayList();
   creaPuntos();
   creaAchurados();
+  strokeCap(SQUARE);
+  strokeJoin(BEVEL);
 }
 
 void creaPuntos() {

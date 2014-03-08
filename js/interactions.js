@@ -13,12 +13,7 @@ onload = function() {
 		var pjs = Processing.getInstanceById('PaperLager');
 		pjs.updateAnchoTrama(this.value);
 	};
-
-
 }; 
-
-
-
 
 
 function addNoise(){
@@ -39,6 +34,13 @@ function zoomOut(){
 function reset(){
 	var pjs = Processing.getInstanceById('PaperLager');
 	pjs.setup();
+}
+
+function saveImage(){
+	var canvas = document.getElementById("PaperLager");
+	var context = canvas.getContext("2d");
+	window.location = canvas.toDataURL("image/png");
+	// document.write('<img src="'+canvas+'"/>');
 }
 
 $('zoom').oninput();
