@@ -5,11 +5,11 @@
 @gray: 			lighten(@black, 50);
 @gray-light:	lighten(@black, 80);
 @gray-dark:		lighten(@black, 45);
-
+@brown: 		#8B3F0D;
 
 body {
 	margin: 0;
-	background-color: @gray; 
+	background-color: @brown; 
 	color: @gray-light; 
 	line-height: normal;
 	font-family: Lucida Grande, Lucida Sans, Arial, Helvetica Neue, Verdana, Geneva, sans-serif;
@@ -44,14 +44,37 @@ canvas {
 #content { 
 	margin: 0; 
 	padding: 0;
-	border: 1px solid @gray-light; 
-	background-color: @gray-dark;
 }
 
 #controls{
 	position: absolute;
-	width: 400px;
+	width: 180px;
 	top: 0;
 	right: 0;
 	background-color: fade(@white, 20);
+	padding: 20px;
+	
+	label{
+		display: block;
+		font-weight: bolder;
+		color: @white;
+		text-transform: uppercase;
+		font-size: 9px;
+
+		input[type="range"]{
+			display: inline-block;
+			width: 120px;
+			margin: 0;
+			padding: 0;
+		}
+		.output{
+			display: inline-block;
+			position: relative;
+			top: -5px;
+			margin-left: 10px;
+			font-size: 12px;
+			font-weight: lighter;
+			color: fade(@white, 60);
+		}
+	}
 }
