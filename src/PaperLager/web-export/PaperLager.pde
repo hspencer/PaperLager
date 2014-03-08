@@ -11,10 +11,11 @@ void setup() {
   achurados = new ArrayList();
   creaPuntos();
   creaAchurados();
+  strokeCap(SQUARE);
+  strokeJoin(BEVEL);
 }
 
 void creaPuntos() {
-
   // se crean puntos en una retícula ordenada
   float xSpacer = (width - (2*m)) / float(numX - 1);
   float ySpacer = (height -(2*m)) / float(numY - 1);
@@ -36,7 +37,6 @@ void creaPuntos() {
 
 
 void creaAchurados() {
-
   for (int i = 0; i < puntos.length - numX - 1; i++) {
     if ((i - (numX - 1)) % numX != 0) {
       Achurado a = new Achurado(puntos[i], puntos[i+1], puntos[i+numX], puntos[i+numX+1]);
@@ -55,17 +55,13 @@ void dibujaAchurados() {
   for (int i = 0; i < achurados.size(); i++) {
     Achurado a = (Achurado)achurados.get(i);
     a.draw();
+  }  
+  for (int i = 0; i < puntos.length; i++) {
+    if (puntos[i].over()) {
+      puntos[i].draw();
+    }
   }
 }
-
-
-
-
-
-
-
-
-
 
 class Achurado {
   Punto a, b, c, d, centro;
@@ -94,17 +90,7 @@ class Achurado {
   void draw() {
     calc();
     strokeWeight(anchoTrazo);
-    if (over) {
-      noStroke();
-      //fill(#BB0AED, 100);
-      //ellipse(centro.x, centro.y, 2*radio, 2*radio);
-      
-      color col = lerpColor(lineas, color(255), .2);
-      stroke(col);
-    }
-    else {
-      stroke(lineas);
-    }
+    stroke(lineas);
     if (horizontal) {
       hatch(a, b, c, d);
     }
@@ -118,14 +104,18 @@ class Achurado {
   void calc() {
     centro.x = (a.x + b.x + c.x + d.x)/4;
     centro.y = (a.y + b.y + c.y + d.y)/4;
-    float[] coordenadasX = {a.x, b.x, c.x, d.x};
-    float[] coordenadasY = {a.y, b.y, c.y, d.y};
+    float[] coordenadasX = {
+      a.x, b.x, c.x, d.x
+    };
+    float[] coordenadasY = {
+      a.y, b.y, c.y, d.y
+    };
     float minX = min(coordenadasX);
     float maxX = max(coordenadasX);
     float minY = min(coordenadasY);
     float maxY = max(coordenadasY);
-    
-    radio = min((maxX - minX),(maxY - minY)) / 2;
+
+    radio = min((maxX - minX), (maxY - minY)) / 2;
 
     if (dist(mouseX, mouseY, centro.x, centro.y) < radio) {
       over = true;
@@ -135,44 +125,43 @@ class Achurado {
     }
   }
 }
+
 class Punto {
   float x, y;
   int num;
-  
+
   Punto() {
     x = random(m, width-m);
     y = random(m, height-m);
   }
-  
+
   Punto(float _x, float _y) {
     x = _x;
     y = _y;
     num = 999;
   }
-  
+
   Punto(float _x, float _y, int n) {
     x = _x;
     y = _y;
     num = n;
   }
-}
 
-void hatch(
-float x1, float y1, 
-float x2, float y2, 
-float x3, float y3, 
-float x4, float y4
-) {
-  int num = 12;
-  float incx1 = (x2 - x1) / (float)(num - 1);
-  float incy1 = (y2 - y1) / (float)(num - 1);
-  float incx2 = (x4 - x3) / (float)(num - 1);
-  float incy2 = (y4 - y3) / (float)(num - 1);
-  for (int i = 0; i < num; i++) {
-    line(x1 + incx1 * i, y1 + incy1 * i, 
-    x3 + incx2 * i, y3 + incy2 * i);
+  boolean over() {
+    if (dist(x, y, mouseX, mouseY) < 8) {
+      return true;
+    }
+    else if(mousePressed == false){
+      return false;
+    }
+  }
+  void draw() {
+    fill(color(red(lineas)+20, green(lineas)+20, blue(lineas)+20));
+    noStroke();
+    ellipse(x, y, anchoTrazo*4, anchoTrazo*4);
   }
 }
+
 void hatch(
 float x1, float y1, 
 float x2, float y2, 
@@ -244,6 +233,18 @@ void addNoise() {
   }
 }
 
+void updateLineas(String col){
+  lineas = toColor(col);
+}
+
+void updateFondo(String col){
+  fondo = toColor(col);
+}
+
+color toColor(String s){
+  s = "FF" + s.substring(1);
+  return color(unhex(s));
+}
 void keyPressed() {
   if (key == 'r') {
     achurados.clear();
@@ -287,6 +288,16 @@ void mouseReleased() {
     }
   }
 }
+
+void mouseDragged() {
+  for (int i = 0; i < puntos.length; i++) {
+    if (puntos[i].over()) {
+      puntos[i].x = mouseX;
+      puntos[i].y = mouseY;
+    }
+  }
+}
+
 Punto[] puntos;                   // los puntos
 ArrayList achurados;              // los achurados, compuestos cada uno por 4 puntos
 

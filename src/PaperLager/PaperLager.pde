@@ -11,10 +11,11 @@ void setup() {
   achurados = new ArrayList();
   creaPuntos();
   creaAchurados();
+  strokeCap(SQUARE);
+  strokeJoin(BEVEL);
 }
 
 void creaPuntos() {
-
   // se crean puntos en una retícula ordenada
   float xSpacer = (width - (2*m)) / float(numX - 1);
   float ySpacer = (height -(2*m)) / float(numY - 1);
@@ -36,7 +37,6 @@ void creaPuntos() {
 
 
 void creaAchurados() {
-
   for (int i = 0; i < puntos.length - numX - 1; i++) {
     if ((i - (numX - 1)) % numX != 0) {
       Achurado a = new Achurado(puntos[i], puntos[i+1], puntos[i+numX], puntos[i+numX+1]);
@@ -55,15 +55,11 @@ void dibujaAchurados() {
   for (int i = 0; i < achurados.size(); i++) {
     Achurado a = (Achurado)achurados.get(i);
     a.draw();
+  }  
+  for (int i = 0; i < puntos.length; i++) {
+    if (puntos[i].over()) {
+      puntos[i].draw();
+    }
   }
 }
-
-
-
-
-
-
-
-
-
 

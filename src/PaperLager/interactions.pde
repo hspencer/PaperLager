@@ -29,3 +29,15 @@ void addNoise() {
   }
 }
 
+void updateLineas(String col){
+  lineas = toColor(col);
+}
+
+void updateFondo(String col){
+  fondo = toColor(col);
+}
+
+color toColor(String s){
+  s = "FF" + s.substring(1);
+  return color(unhex(s));
+}

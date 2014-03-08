@@ -2,6 +2,8 @@
   "name": "PaperLager",
   "version": "1.0.0",
   "dependencies": {
-    "processingjs": "~1.4.0"
+    "processingjs": "~1.4.0",
+    "jquery": "~2.0.0",
+    "jquery-minicolors": "~2.1.0"
   }
 }
