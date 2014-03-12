@@ -35,7 +35,7 @@ function zoomOut(){
 
 function reset(){
 	var pjs = Processing.getInstanceById('PaperLager');
-	pjs.setup();
+	pjs.regen();
 }
 
 function saveImage(){
@@ -44,7 +44,16 @@ function saveImage(){
 	window.location = canvas.toDataURL("image/png");
 }
 
+function setSize(){
+	var ancho = document.getElementById("ancho").value;
+	var alto = document.getElementById("alto").value;
+	Processing.getInstanceById('PaperLager').size(ancho, alto);
+	var pjs = Processing.getInstanceById('PaperLager');
+	pjs.updateSize(ancho, alto);
+}
+
 onload = function() {
+	
 	document.getElementById('anchoTrazo').oninput = function(){ 
 		document.getElementById('anchoTrazo-out').innerHTML = this.value;
 		var pjs = Processing.getInstanceById('PaperLager');

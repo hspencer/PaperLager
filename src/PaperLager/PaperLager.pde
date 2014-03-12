@@ -19,16 +19,12 @@ void creaPuntos() {
   // se crean puntos en una retícula ordenada
   float xSpacer = (width - (2*m)) / float(numX - 1);
   float ySpacer = (height -(2*m)) / float(numY - 1);
-
   int i = 0; // contador para recorrer el arreglo de puntos
-
   for (int y = 0; y < numY; y++) {
     for (int x = 0; x < numX; x++) {
-
       // las coordenadas del nuevo punto
       float px = m + xSpacer * x;
       float py = m + ySpacer * y;
-
       puntos[i] = new Punto(px, py, i);
       i++;
     }
@@ -55,7 +51,7 @@ void dibujaAchurados() {
   for (int i = 0; i < achurados.size(); i++) {
     Achurado a = (Achurado)achurados.get(i);
     a.draw();
-  }  
+  }
   for (int i = 0; i < puntos.length; i++) {
     if (puntos[i].over()) {
       puntos[i].draw();

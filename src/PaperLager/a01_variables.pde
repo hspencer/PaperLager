@@ -1,9 +1,8 @@
+var ancho = 960;
+var alto = 600;
+
 Punto[] puntos;                   // los puntos
 ArrayList achurados;              // los achurados, compuestos cada uno por 4 puntos
-
-// tamaño del dibujo
-int ancho = 960;
-int alto = 600;
 
 // número de puntos
 int numX = 15;
@@ -19,5 +18,3 @@ color lineas = color(#B2581D);
 // trama
 float anchoTrama = 5;
 float anchoTrazo = 1;
-
-
