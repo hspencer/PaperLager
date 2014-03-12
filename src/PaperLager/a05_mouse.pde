@@ -12,6 +12,7 @@ void mouseDragged() {
     if (puntos[i].over()) {
       puntos[i].x = mouseX;
       puntos[i].y = mouseY;
+      puntos[i].over() = true;
     }
   }
 }
