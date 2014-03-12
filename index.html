@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv='content-type' content='text/html; charset=utf-8' />
 	<title>PaperLager</title>
-
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
 	<link rel='stylesheet' type='text/css' href='css/pl.css'>
 	<!--[if lt IE 9]>
 		<script type='text/javascript'>alert('Your browser does not support the canvas tag.');</script>
@@ -34,6 +34,12 @@
 		<a href='http://www.github.com/hspencer/PaperLager' class='github-btn'>ver en Github</a>
 		
 		<hr>
+
+		<div class='dimensiones'>
+			<input id='ancho' type='number' value='960' placeholder='ancho'>
+			<input id='alto' type='number' value='600' placeholder='alto'>
+			<input type='button' id='setSize' value='set' onClick='setSize();'>
+		</div>
 
 		<label for='zoom-control'>Zoom</label>
 		<div id='zoom-control' class='button-group'>
